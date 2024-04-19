@@ -1,5 +1,4 @@
-// Java program for insertion and
-// deletion in Circular Queue
+
 import java.util.ArrayList;
 
 class CircularQueue{
