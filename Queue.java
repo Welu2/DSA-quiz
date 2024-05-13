@@ -1,95 +1,64 @@
-public class Queue {
-    private int maxSize; // Maximum size of the queue
-    private int[] queueArray; // Array to store queue elements
-    private int front; // Index of the front element
-    private int rear; // Index of the rear element
-    private int currentSize; // Current number of elements in the queue
+package package3;
 
-    // Constructor to initialize the queue
-    public Queue(int size) {
-        maxSize = size;
-        queueArray = new int[maxSize];
-        front = 0;
-        rear = -1;
-        currentSize = 0;
-    }
 
-    // Method to check if the queue is empty
-    public boolean isEmpty() {
-        return currentSize == 0;
-    }
+import package2.Stacks;
 
-    // Method to check if the queue is full
-    public boolean isFull() {
-        return currentSize == maxSize;
-    }
+import java.util.*;
+public class Queue implements Stacks{
+static class queue {
 
-    // Method to add an element to the rear of the queue
-    public void enqueue(int item) {
-        if (!isFull()) {
-            rear = (rear + 1) % maxSize;
-            queueArray[rear] = item;
-            currentSize++;
-        } else {
-            System.out.println("Queue is full. Cannot enqueue " + item);
-        }
-    }
+            //static Stack<Integer> s1 = new Stack<Integer>();
+            static Stack<Integer> s2 = new Stack<Integer>();
 
-    // Method to remove an element from the front of the queue
-    public int dequeue() {
-        if (!isEmpty()) {
-            int removedItem = queueArray[front];
-            front = (front + 1) % maxSize;
-            currentSize--;
-            return removedItem;
-        } else {
-            System.out.println("Queue is empty. Cannot dequeue.");
-            return -1; // Return -1 indicating queue underflow
-        }
-    }
+            static void enQueue(int x)
+            {
 
-    // Method to get the front element of the queue without removing it
-    public int peek() {
-        if (!isEmpty()) {
-            return queueArray[front];
-        } else {
-            System.out.println("Queue is empty. Cannot peek.");
-            return -1; // Return -1 indicating queue underflow
-        }
-    }
+                while (!Stacks.isEmpty())
+                {
+                    s2.push(Stacks.pop());
 
-    // Method to display the elements of the queue
-    public void display() {
-        if (!isEmpty()) {
-            System.out.print("Queue elements: ");
-            int count = 0;
-            int index = front;
-            while (count < currentSize) {
-                System.out.print(queueArray[index] + " ");
-                index = (index + 1) % maxSize;
-                count++;
+                }
+
+
+                Stacks.push(x);
+
+
+                while (!s2.isEmpty())
+                {
+                    Stacks.push(s2.pop());
+
+                }
             }
-            System.out.println();
-        } else {
-            System.out.println("Queue is empty.");
+
+
+            static int deQueue()
+            {
+
+                if (Stacks.isEmpty())
+                {
+                    return -1;
+                }
+
+
+                int x = Stacks.peek();
+                Stacks.pop();
+                return x;
+            }
+        };
+
+        // Driver code
+        public static void main(String[] args)
+        {
+            queue q = new queue();
+            queue.enQueue(1);
+            queue.enQueue(2);
+            queue.enQueue(3);
+
+            System.out.println(queue.deQueue());
+            System.out.println(queue.deQueue());
+            System.out.println(queue.deQueue());
         }
     }
 
-    public static void main(String[] args) {
-        Queue queue = new Queue(5);
-        queue.enqueue(10);
-        queue.enqueue(20);
-        queue.enqueue(30);
-        queue.enqueue(40);
-        queue.enqueue(50);
 
-        queue.display(); // Output: 10 20 30 40 50
-
-        queue.dequeue();
-        queue.dequeue();
-
-        queue.display(); // Output: 30 40 50
-
-        System.out.println("Front element: " + queue.peek()); // Output: Front element: 30
-    }
 }
